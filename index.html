@@ -402,7 +402,13 @@ const matchRows = (rows, code, name) => {
 // ─── LOAD DATA ────────────────────────────────────────────────────────────
 async function loadData() {
   try {
-    const res = await fetch("https://script.google.com/macros/s/AKfycbxRg9iT3JORBRuzoy_fUOVBu8O9oa_b7tfeBQp7hnAAVF-2YDhOkC9r7hPeZltP_GJ7/exec");
+    const url =
+  "https://script.google.com/macros/s/AKfycbxRg9iT3JORBRuzoy_fUOVBu8O9oa_b7tfeBQp7hnAAVF-2YDhOkC9r7hPeZltP_GJ7/exec?t=" +
+  Date.now();
+
+const res = await fetch(url, {
+  cache: "no-store"
+});
     const remote = await res.json();
     DB = { stockBekas:[], ...remote };
     if (!DB.stockBekas) DB.stockBekas = [];
